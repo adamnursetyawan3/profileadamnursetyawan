@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
@@ -15,8 +15,11 @@ app.get('/api/health', (req, res) => {
 // Serve static assets from project root
 app.use(express.static(__dirname));
 
-// Fallback to index.html
+// Fallback to index.html for page routes (exclude requests with file extensions)
 app.get('*', (req, res) => {
+  if (path.extname(req.path)) {
+    return res.status(404).send('File not found');
+  }
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 

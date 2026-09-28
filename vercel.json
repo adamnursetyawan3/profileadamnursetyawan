@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "server.js": {
+      "includeFiles": "{fotoprofil.jpg,banner.jpg,shapeofmyheart.ogg,index.html}"
+    }
+  }
+}
